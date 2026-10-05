@@ -1,0 +1,17 @@
+{
+  "id": "abacophy.app.ans",
+  "name": "ÁbacoPhy",
+  "version": "1.0.0",
+  "description": "Contabilidad PyME — partida doble, inventario, nómina, facturas PDF",
+  "entry": "proxy",
+  "proxy": {
+    "target": "http://127.0.0.1:8090",
+    "strip_prefix": false
+  },
+  "routes": {
+    "ui": "/",
+    "api": "/api/v1"
+  },
+  "roles": ["master", "admin", "contador", "operador", "readonly"],
+  "default": true
+}

@@ -1,0 +1,12 @@
+bin/
+vendor/
+web/studio-src/
+data/logs/
+data/node/**
+data/tenants/**
+data/mind/**
+data/apps/**
+!data/**/.gitkeep
+*.exe
+*.log
+.DS_Store

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Prism@.TEC Core — Desktop</title>
+  <style>
+    :root { --bg:#0f1419; --card:#1a2332; --ink:#e8eef8; --muted:#8b9bb4; --accent:#F4B400; --ok:#3dd68c; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+    header { padding: 1rem 1.25rem; border-bottom: 1px solid #243044; display: flex; align-items: center; gap: 0.75rem; }
+    header strong { color: var(--accent); font-size: 1.1rem; }
+    header span { color: var(--muted); font-size: 0.85rem; }
+    main { padding: 1.25rem; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); max-width: 1100px; }
+    .card { background: var(--card); border: 1px solid #243044; border-radius: 12px; padding: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .card h2 { font-size: 1rem; }
+    .card p { font-size: 0.8rem; color: var(--muted); line-height: 1.4; flex: 1; }
+    .card a { display: inline-block; margin-top: 0.35rem; padding: 0.45rem 0.75rem; background: var(--accent); color: #111; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; }
+    .status { font-size: 0.75rem; color: var(--muted); }
+    .status.ok { color: var(--ok); }
+    footer { padding: 1rem 1.25rem; color: var(--muted); font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Prism@.TEC Core</strong>
+    <span>Desktop portable · mini-nodo Alset</span>
+  </header>
+  <main>
+    <div class="card">
+      <h2>ÁbacoPhy</h2>
+      <p>Contabilidad PyME. App por defecto (ANS).</p>
+      <a href="http://127.0.0.1:8090/" target="_blank" rel="noopener">Abrir app</a>
+      <a href="http://127.0.0.1:8080/w/abacophy.app.ans" target="_blank" rel="noopener">Vía ANS</a>
+    </div>
+    <div class="card">
+      <h2>Alset Studio</h2>
+      <p>Crear y previsualizar apps (móvil / tablet / desktop) con LispAI.</p>
+      <a href="http://127.0.0.1:5177/" target="_blank" rel="noopener">Abrir Studio</a>
+    </div>
+    <div class="card">
+      <h2>Control Studio (nodo)</h2>
+      <p>Organismos, Pulse, AIP — PrismaTec Core.</p>
+      <a href="http://127.0.0.1:8080/studio/" target="_blank" rel="noopener">Abrir nodo</a>
+    </div>
+    <div class="card">
+      <h2>Estado local</h2>
+      <p class="status" id="st">Comprobando servicios…</p>
+    </div>
+  </main>
+  <footer>PrismatecCore-Portable · datos en <code>./data</code> · no requiere instalación</footer>
+  <script>
+    const ports = [
+      { name: 'Nodo', url: 'http://127.0.0.1:8080/studio/' },
+      { name: 'Studio', url: 'http://127.0.0.1:5177/' },
+      { name: 'ÁbacoPhy', url: 'http://127.0.0.1:8090/api/v1/info' }
+    ];
+    async function probe() {
+      const lines = [];
+      for (const p of ports) {
+        try {
+          const r = await fetch(p.url, { mode: 'no-cors' });
+          lines.push(p.name + ': alcanzado (o bloqueado por CORS — si abre el enlace, OK)');
+        } catch (e) {
+          lines.push(p.name + ': no responde — ejecute start.bat');
+        }
+      }
+      const el = document.getElementById('st');
+      el.className = 'status ok';
+      el.innerHTML = lines.join('<br/>');
+    }
+    probe();
+  </script>
+</body>
+</html>

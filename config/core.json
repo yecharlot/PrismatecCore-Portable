@@ -1,0 +1,19 @@
+{
+  "product": "Prism@.TEC Core",
+  "package": "PrismatecCore-Portable",
+  "version": "0.1.0-portable",
+  "modes": ["windows-portable", "usb-boot-mbr-uefi"],
+  "apps_default": ["abacophy.app.ans"],
+  "paths": {
+    "data": "data",
+    "apps": "apps",
+    "bin": "bin",
+    "web": "web"
+  },
+  "services": {
+    "node": { "port": 8080, "path": "/studio/", "ans": "/w/" },
+    "studio": { "port": 5177, "path": "/" },
+    "abacophy": { "port": 8090, "path": "/", "api": "/api/v1" },
+    "desktop": { "port": 7420, "path": "/" }
+  }
+}
